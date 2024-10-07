@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:latihan_1/login.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
 
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirm_passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+void _tampil(){
+  String username = usernameController.text;
+  String email = emailController.text;
+  String pass = passwordController.text;
+  String confirm = confirm_passwordController.text;
+
+  showDialog(context: context, builder: (context){
+    return AlertDialog(
+      title: Text("Data Akun"),
+      content: Text("Username: $username, Email: $email, Password: $pass, Confirm: $confirm"),
+    );
+  });
+
+}
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +91,7 @@ class RegisterScreen extends StatelessWidget {
               ),
             ),
               TextFormField(
+                controller: usernameController,
                 decoration: const InputDecoration(
                   labelText: 'Username',
                   hintText: 'Masukan Username Anda',
@@ -82,6 +107,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               SizedBox(height: 16),
               TextFormField(
+                controller: emailController,
                 decoration: const InputDecoration(
                   labelText: 'Email',
                   hintText: 'Masukan Email Anda',
@@ -98,6 +124,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               TextFormField(
+                controller: passwordController,
                 decoration: const InputDecoration(
                   labelText: 'Password',
                   hintText: 'Buat Password Yang Rumit ',
@@ -114,6 +141,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               SizedBox(height: 16),
               TextFormField(
+                controller: confirm_passwordController,
                 decoration: InputDecoration(
                   labelText: 'Confirm Password',
                   hintText: 'Masukan Ulang Password Anda',
@@ -141,6 +169,7 @@ class RegisterScreen extends StatelessWidget {
         if (_formKey.currentState!.validate()) {
           // Proses validasi berhasil
           print('Form is valid');
+          _tampil();
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => LoginScreen()),
