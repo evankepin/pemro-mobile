@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:latihan_1/main.dart';
+import 'package:latihan_1/home.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -12,134 +12,115 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool rememberMe = false;
 
-void _tampil(){
-  String username = usernameController.text;
-  String pass = passwordController.text;
+  void _tampil() {
+    String username = usernameController.text;
+    String pass = passwordController.text;
 
-  showDialog(context: context, builder: (context){
-    return AlertDialog(
-      title: Text("Data Akun"),
-      content: Text("Username: $username, Password: $pass"),
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Data Akun"),
+          content: Text("Username: $username, Password: $pass"),
+        );
+      },
     );
-  });
-}
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Register"),
-        backgroundColor: const Color.fromARGB(255, 0, 255, 255),
-        elevation: 0, // Menghilangkan shadow dari AppBar
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () {
-              print("Notifikasi ditekan");
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              print("Pencarian ditekan");
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            onPressed: () {
-              print("More ditekan");
-            },
-          ),
-        ],
-      ),
-      body: SingleChildScrollView( // Menggunakan scroll view untuk menghindari overflow pada layar kecil
-        child: Padding(
-          padding: const EdgeInsets.all(20.0), // Menambahkan padding agar lebih rapi
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 30), // Menambahkan ruang di atas
-                Center(
-                  child: Column(
-                    children: [
-                      Icon(Icons.lock, size: 100, color: const Color.fromARGB(255, 0, 255, 255)),
-                      SizedBox(height: 10),
-                      Text(
-                        'LOGIN',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 0, 255, 255),
-                        ),
+      backgroundColor: Colors.white,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  // Logo
+                  Image.network(
+                    'https://raw.githubusercontent.com/evankepin/gambar-pemro/refs/heads/main/Buku%20_%20Domain%20publik%20vektor.jpeg', // Tambahkan gambar logo di assets
+                    height: 200,
+                    width: 200,
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'PERPUSDA PBG LOGIN',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(221, 33, 94, 152),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  
+                  // Username Field
+                  TextFormField(
+                    controller: usernameController,
+                    decoration: InputDecoration(
+                      labelText: 'Email or Username',
+                      labelStyle: TextStyle(color: Colors.black87),
+                      hintText: 'Masukan Email atau Username Anda',
+                      prefixIcon: const Icon(Icons.email, color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      Text(
-                        'Create your account',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.teal),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 40), // Menambahkan jarak antara header dan form
-                TextFormField(
-                  controller: usernameController,
-                  decoration: InputDecoration(
-                    labelText: 'Username',
-                    hintText: 'Masukkan Username Anda',
-                    prefixIcon: Icon(Icons.account_box),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10), // Membuat border melengkung
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color.fromARGB(255, 0, 255, 255)),
-                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: passwordController,
-                  obscureText: true, // Menyembunyikan password
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'Masukkan Password Anda',
-                    prefixIcon: Icon(Icons.lock, color: const Color.fromARGB(255, 0, 255, 255)),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color.fromARGB(255, 0, 255, 255)),
-                      borderRadius: BorderRadius.circular(10),
+                  const SizedBox(height: 20),
+
+                  // Password Field
+                  TextFormField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      labelStyle: TextStyle(color: Colors.black87),
+                      prefixIcon: const Icon(Icons.lock, color: Colors.grey),
+                      suffixIcon: const Icon(Icons.visibility, color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.teal),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 30),
-                Center(
-                  child: SizedBox(
-                    width: double.infinity, // Tombol memenuhi lebar layar
-                    child: ElevatedButton(
+                  const SizedBox(height: 10),
+                  
+                  // Remember Me and Forgot Password Row
+                  
+                  const SizedBox(height: 20),
+
+                  // Login Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 0, 255, 255), // Warna tombol teal
+                        backgroundColor: Colors.blue, // Warna tombol
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10), // Membuat tombol melengkung
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        elevation: 5, // Memberikan shadow pada tombol
+                        elevation: 5,
                       ),
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // Proses validasi berhasil
-                          print('Form is valid');
-                          _tampil();
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => MyApp()),
-                          // );
-                        }
+                       Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => MyApp()),
+                            );
                       },
-                      child: Text(
+                      icon: const Icon(Icons.login, color: Colors.white),
+                      label: const Text(
                         'Login',
                         style: TextStyle(
                           fontSize: 18,
@@ -149,24 +130,39 @@ void _tampil(){
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 20),
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      print("Forgot Password");
-                    },
-                    child: Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        color: const Color.fromARGB(255, 0, 255, 255),
-                        fontSize: 16,
-                        decoration: TextDecoration.underline,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: rememberMe,
+                            onChanged: (value) {
+                              setState(() {
+                                rememberMe = value!;
+                              });
+                            },
+                          ),
+                          const Text('Remember me'),
+                        ],
                       ),
-                    ),
+                      GestureDetector(
+                        onTap: () {
+                          print("Forgot Password?");
+                        },
+                        child: const Text(
+                          'Forgot Password?',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 14,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
