@@ -86,10 +86,13 @@ class HomeScreen extends StatelessWidget {
               SectionTitle(title: 'Teman yang Disarankan'),
               SizedBox(height: 8),
               Row(
+                
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  FriendCard(name: '1702036162', initials: '1U'),
-                  FriendCard(name: 'Abdul Aziz', initials: 'AA'),
+                  FriendCard(name: 'Evana', initials: 'EA'),
+                  FriendCard(name: 'Aqmal', initials: 'AM'),
+                  FriendCard(name: 'Rofiq', initials: 'RF'),
+                  
                 ],
               ),
             ],
